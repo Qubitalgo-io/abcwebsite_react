@@ -43,9 +43,14 @@ html {
 body {
     margin: 0;
     padding: 0;
-    padding-top: 3em;
     overflow-x: hidden;
     max-width: 100vw;
+}
+
+.header-spacer {
+    height: 4em;
+    width: 100%;
+    display: block;
 }
 
 /* ==================== HEADER STYLES ==================== */
@@ -183,105 +188,55 @@ p {
 /* ==================== HERO SECTION ==================== */
 .hero-section {
     position: relative;
-    min-height: 85vh;
-    background-repeat: no-repeat; 
+    min-height: 90vh;
     overflow: hidden;   
     display: flex;
     flex-direction: column;
-    padding: 2em 0;
-    border: 3em solid white; 
+    padding: 5em 3em;
     justify-content: center;
-    align-items: flex-start;
-    text-align: left;
-    color: var(--primary-yellow); 
+    align-items: center;
+    text-align: center;
     background-color: rgba(0, 0, 0, 0.95);
 }
 
-/* Horizontal gradient lines */
-.hero-section::before {
-    content: '';
+/* Grid background for hero */
+.hero-background {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2rem,
-            transparent 2rem,
-            transparent calc(2rem + 1px)
-        );
-    -webkit-mask-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2rem,
-        white 2rem,
-        white calc(2rem + 1px)
-    );
-    mask-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2rem,
-        white 2rem,
-        white calc(2rem + 1px)
-    );
-    background: linear-gradient(to right, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        rgba(255, 255, 255, 0.5) 60%, 
-        rgba(255, 255, 255, 0.9) 100%
-    );
-    opacity: 0.3;
-    z-index: 0;
-}
-
-/* Vertical gradient lines */
-.hero-section::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    -webkit-mask-image: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 4rem,
-        white 4rem,
-        white calc(4rem + 1px)
-    );
-    mask-image: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 4rem,
-        white 4rem,
-        white calc(4rem + 1px)
-    );
-    background: linear-gradient(to right, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        rgba(255, 255, 255, 0.5) 60%, 
-        rgba(255, 255, 255, 0.9) 100%
-    );
-    opacity: 0.4;
-    z-index: 0;
-}
-
-.hero-section h1 {
-    font-size: var(--font-display);
-    text-align: left;
-    max-width: 2500px;
-    width: 60%;
-    padding: 0 7rem;
-    position: relative;
     z-index: 1;
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: var(--line-height-tight);
+    background-image: 
+        linear-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 55, 0.08) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+.hero-title {
+    color: var(--primary-yellow);
+    max-width: 1000px;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-divider {
+    background: linear-gradient(90deg, transparent 0%, var(--primary-yellow) 50%, transparent 100%);
+}
+
+.hero-paragraph {
+    font-size: var(--font-h2);
+    font-weight: var(--weight-regular);
+    line-height: var(--line-height-normal);
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
 }
 
 /* Shimmer gradient text animation */
-.hero-section h1.shimmer-text {
+.shimmer-text {
     --duration: 6s;
     --offset: 20ch;
     --angle: 90deg;
@@ -311,37 +266,6 @@ p {
     70% {
         background-position: 0% 0;
     }
-}
-
-.hero-section-paragraph {
-    margin-top: 0;
-    font-weight: var(--weight-regular);
-    font-size: var(--font-h2);
-    line-height: var(--line-height-normal);
-    text-align: left;
-    width: 60%;
-    padding: 0 7rem;
-    position: relative;
-    z-index: 1;
-    
-    /* Shimmer effect */
-    --duration: 6s;
-    --offset: 20ch;
-    --angle: 90deg;
-    
-    background: linear-gradient(
-      var(--angle),
-      var(--secondary-yellow) calc(50% - var(--offset)),
-      #ffffff,
-      var(--primary-yellow),
-      #ffffff,
-      var(--secondary-yellow) calc(50% + var(--offset))
-    ) 0 0 / 300% 100% no-repeat;
-    
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: shimmer var(--duration) infinite ease-in-out;
 }
 
 /* ==================== MISSION SECTION ==================== */
@@ -811,9 +735,8 @@ p {
         padding: 0 3rem;
     }
     
-    .hero-section-paragraph {
-        width: 85%;
-        padding: 0 3rem;
+    .hero-paragraph {
+        padding: 0 2em;
     }
     
     .mission-section {
@@ -903,27 +826,17 @@ p {
     }
     
     .hero-section {
-        height: auto;
         min-height: 70vh;
-        border: 1em solid white;
-        padding: 3em 0;
-        max-width: 100vw;
+        padding: 4em 1.5em;
     }
     
-    .hero-section h1 {
-        width: 100%;
-        padding: 0 1.5rem;
-        box-sizing: border-box;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
+    .hero-title {
+        max-width: 100%;
+        padding: 0 1em;
     }
     
-    .hero-section-paragraph {
-        width: 100%;
-        padding: 0 1.5rem;
-        box-sizing: border-box;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
+    .hero-paragraph {
+        padding: 0 1.5em;
     }
     
     .mission-section {
@@ -1009,15 +922,15 @@ p {
     }
     
     .hero-section {
-        border: 1em solid white;
+        padding: 3em 1em;
     }
     
-    .hero-section h1 {
-        padding: 0 1.5rem;
+    .hero-title {
+        padding: 0 0.5em;
     }
     
-    .hero-section-paragraph {
-        padding: 0 1.5rem;
+    .hero-paragraph {
+        padding: 0 1em;
     }
     
     .mission {
