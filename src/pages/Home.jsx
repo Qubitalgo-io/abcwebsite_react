@@ -16,13 +16,10 @@ function Home() {
   return (
     <>
       <Header />
-      <div className="header-spacer"></div>
       
       <section id="home" className="hero-section">
-        <div className="hero-background"></div>
-        <h1 className="section-title hero-title shimmer-text">Boost your Accounting Automation with AI Innovation</h1>
-        <hr className="section-divider hero-divider" />
-        <p className="hero-paragraph shimmer-text">
+        <h1 className="shimmer-text">Boost your Accounting Automation with AI Innovation</h1>
+        <p className="hero-section-paragraph">
           A leading company combines AI technology with professional accounting expertise
         </p>
       </section>
