@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Carousel from '../components/Carousel';
 import Splitting from 'splitting';
 import 'splitting/dist/splitting.css';
 
@@ -18,41 +17,7 @@ function Home() {
     <>
       <Header />
       
-      <section className="hero-section">
-        <div className="hero-code-overlay">
-{`Sub AutomateInvoiceProcessing()
-    Dim ws As Worksheet
-    Dim lastRow As Long
-    Dim i As Long
-    
-    Set ws = ThisWorkbook.Sheets("Invoices")
-    lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
-    
-    For i = 2 To lastRow
-        If ws.Cells(i, 5).Value = "Pending" Then
-            ws.Cells(i, 5).Value = "Processed"
-            ws.Cells(i, 6).Value = Now()
-            
-            Call SendNotification(ws.Cells(i, 1).Value)
-        End If
-    Next i
-    
-    MsgBox "Processing complete: " & (lastRow - 1) & " invoices"
-End Sub
-
-Function CalculateTax(amount As Double) As Double
-    Const TAX_RATE As Double = 0.15
-    CalculateTax = amount * TAX_RATE
-End Function
-
-Sub GenerateReport()
-    Dim reportDate As Date
-    reportDate = Date
-    
-    Range("A1").Value = "Financial Report"
-    Range("A2").Value = "Generated: " & Format(reportDate, "dd/mm/yyyy")
-End Sub`}
-        </div>
+      <section id="home" className="hero-section">
         <h1 className="shimmer-text">Boost your Accounting Automation with AI Innovation</h1>
         <p className="hero-section-paragraph">
           A leading company combines AI technology with professional accounting expertise
@@ -60,21 +25,7 @@ End Sub`}
       </section>
 
       <section className="mission-section">
-        <div className="water-wave water-wave-1">
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,50 Q150,70 300,50 T600,50 T900,50 T1200,50 L1200,120 L0,120 Z" fill="rgba(255, 255, 255, 0.3)"/>
-          </svg>
-        </div>
-        <div className="water-wave water-wave-2">
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,60 Q200,40 400,60 T800,60 T1200,60 L1200,120 L0,120 Z" fill="rgba(255, 255, 255, 0.2)"/>
-          </svg>
-        </div>
-        <div className="water-wave water-wave-3">
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,70 Q250,90 500,70 T1000,70 T1500,70 L1500,120 L0,120 Z" fill="rgba(255, 255, 255, 0.15)"/>
-          </svg>
-        </div>
+        <div className="grid-background"></div>
         <h1 ref={missionTitleRef} className="mission-title" data-splitting>Our Mission</h1>
         <hr className="mission-divider" />
         <div className="mission">
@@ -83,22 +34,69 @@ End Sub`}
         </div>
       </section>
 
-      <Carousel />
-
-      <section className="projects-section">
-        <h1>ABC Lab Projects</h1>
-        <div className="project-boxes">
-          <div className="project">
-            <h3>Automated Processing</h3>
-            <p>Using Generative AI, OCR and ERP (Odoo) database integration, we automate the scanning and recording of transactions, improving efficiency and reducing errors.</p>
+      <section className="services-section">
+        <div className="grid-background"></div>
+        <h1 className="section-title">Core Services</h1>
+        <hr className="section-divider" />
+        <div className="services-grid">
+          <div className="service-card">
+            <h3>AI-Powered Bookkeeping</h3>
+            <p>Merges machine learning for automated transaction classification. Instant data processing enabling real-time financial dashboards. Cognitive automation via NLP/computer vision to interpret unstructured documents.</p>
           </div>
-          <div className="project project-image-1" />
-          <div className="project project-image-2" />
-          <div className="project">
-            <h3>WeChat x ChatGPT</h3>
-            <p>Integrating ChatGPT into WeChat enables real-time translation, 24/7 automated customer support, streamlined workflows, and flexible AI-driven mini-program development for businesses.</p>
+          <div className="service-card">
+            <h3>RPA Workflow Automation</h3>
+            <p>Deploys software bots to handle rule-based business processes like invoice matching, payroll processing. Operating 24/7, these bots integrate with ERP/accounting systems (Odoo, SAP, Office 365) to achieve 99.9% accuracy and reduce processing time.</p>
+          </div>
+          <div className="service-card">
+            <h3>Smart Financial Reporting</h3>
+            <p>In-depth financial analysis provides valuable data to support informed business decisions. Helping clients avoid costly errors caused by inadequate financial data.</p>
+          </div>
+          <div className="service-card">
+            <h3>ERP System Design & Integration</h3>
+            <p>Bridge accounting workflows with supply chain/CRM modules. API connectors for legacy system integration. Embed machine learning models directly into financial modules. Continuous process improvement audits.</p>
           </div>
         </div>
+      </section>
+
+      <section id="about" className="team-section">
+        <h1 className="section-title">Our Team</h1>
+        <hr className="section-divider" />
+        <div className="team-image-container">
+          <img src="/photos/team.jpeg" alt="Our Team" className="team-image" />
+        </div>
+        <div className="team-content">
+          <p>Our consulting team comprises a diverse group of seasoned professionals, including experienced consultants, former industry leaders, risk and technology specialists, compliance solution experts, and financial regulation authorities. Each team member brings unique insights and deep expertise to address the complex challenges our clients face.</p>
+          <p>This collective expertise allows us to harness knowledge and innovation to help our clients effectively manage compliance risks in an ever-changing regulatory landscape. We are committed to delivering tailored solutions that meet the evolving needs of businesses across various industries.</p>
+        </div>
+        <p className="certs-intro">Our team holds industry-recognized certifications from leading technology and professional bodies:</p>
+        <ul className="certs-list">
+          <li>AWS Certified Cloud Practitioner</li>
+          <li>Azure AI Fundamentals</li>
+          <li>AWS Certified Solutions Architect – Associate</li>
+          <li>IBM Data Science Professional Certificate</li>
+          <li>IBM AI Engineering Professional Certificate</li>
+          <li>Databricks Certified Data Analyst Associate</li>
+          <li>Alibaba Cloud Certified Professional - Data Analyst</li>
+          <li>Deep Learning Specialization by DeepLearning.AI</li>
+          <li>HKICPA - Practising Certificates</li>
+          <li>Certified Information Systems Auditor® (CISA®)</li>
+          <li>CISSP - Certified Information Systems Security Professional</li>
+        </ul>
+      </section>
+
+      <section className="value-section">
+        <div className="grid-background"></div>
+        <h1 className="section-title">Our Commitment & Value Proposition</h1>
+        <hr className="section-divider" />
+        <p className="value-text">As a forward-thinking consultancy, we are deeply committed to sustainability across all facets of our operations. Our goal extends beyond delivering financial returns; we strive to generate tangible social and environmental benefits for our clients and the communities we serve.</p>
+        <p className="value-intro">By partnering with us, you gain access to:</p>
+        <ul className="value-list">
+          <li>Cutting-edge technological solutions</li>
+          <li>Industry-leading expertise</li>
+          <li>Innovative compliance strategies</li>
+          <li>Sustainable operational models</li>
+        </ul>
+        <p className="value-closing">We invite you to join us in reshaping traditional operations through the power of technology. Together, we can drive meaningful change, enhance compliance practices, and create lasting value in an increasingly complex business environment.</p>
       </section>
 
       <Footer />

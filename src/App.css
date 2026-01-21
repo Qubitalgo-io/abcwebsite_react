@@ -120,24 +120,4 @@
 
 .btn-primary:active {
     transform: translateY(0);
-}@media (max-width: 768px) {
-  .not-found-title {
-    font-size: 6rem;
-  }
-
-  .not-found-subtitle {
-    font-size: 2rem;
-  }
-
-  .not-found-text {
-    font-size: 1rem;
-  }
-
-  .error-content h1 {
-    font-size: 2rem;
-  }
-
-  .error-content p {
-    font-size: 1rem;
-  }
 }

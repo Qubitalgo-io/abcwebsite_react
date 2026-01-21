@@ -1,21 +1,19 @@
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 function Header() {
-  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const scrollToFooter = () => {
-    const footer = document.getElementById('footer');
-    if (footer) {
-      footer.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMenuOpen(false); // Close menu after navigation
   };
 
-  const handleNavigation = (path) => {
-    navigate(path);
-    setIsMenuOpen(false); // Close menu after navigation
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMenuOpen(false);
   };
 
   const toggleMenu = () => {
@@ -40,10 +38,9 @@ function Header() {
       </button>
 
       <nav className={`right-header ${isMenuOpen ? 'active' : ''}`}>
-        <button className="header-buttons" onClick={() => handleNavigation('/')}>Home</button>
-        <button className="header-buttons" onClick={() => handleNavigation('/about')}>About Us</button>
-        <button className="header-buttons" onClick={() => handleNavigation('/industries')}>Industries Served</button>
-        <button className="header-buttons" onClick={scrollToFooter}>Contact</button>
+        <button className="header-buttons" onClick={scrollToTop}>Home</button>
+        <button className="header-buttons" onClick={() => scrollToSection('about')}>About Us</button>
+        <button className="header-buttons" onClick={() => scrollToSection('footer')}>Contact</button>
       </nav>
     </header>
   );

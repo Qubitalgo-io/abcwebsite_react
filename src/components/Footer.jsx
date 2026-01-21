@@ -15,7 +15,6 @@ function Footer() {
               target="_blank" 
               rel="noopener noreferrer"
               aria-label="Contact us on WhatsApp"
-              style={{ color: 'inherit', textDecoration: 'none' }}
             >
               WhatsApp: +852 6992 3774
             </a>
@@ -24,7 +23,6 @@ function Footer() {
             <a 
               href="mailto:info@alphabusiness.pro" 
               aria-label="Send us an email"
-              style={{ color: 'inherit', textDecoration: 'none' }}
             >
               Email: info@alphabusiness.pro
             </a>
@@ -33,7 +31,7 @@ function Footer() {
         
         <div className="footer-section">
           <h4>Address</h4>
-          <address style={{ fontStyle: 'normal' }}>
+          <address>
             Workshop 6, Unit 806, 8/F,<br />
             Eight Commercial Tower,<br />
             8 Sun Yip Street, Chai Wan,<br />
