@@ -215,7 +215,8 @@ p {
 
 .hero-title {
     color: var(--primary-yellow);
-    max-width: 1000px;
+    max-width: 80%;
+    width: 80%;
     position: relative;
     z-index: 10;
 }
@@ -229,7 +230,8 @@ p {
     font-weight: var(--weight-regular);
     line-height: var(--line-height-normal);
     color: rgba(255, 255, 255, 0.8);
-    max-width: 800px;
+    max-width: 80%;
+    width: 80%;
     margin: 0 auto;
     position: relative;
     z-index: 10;
