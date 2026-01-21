@@ -62,7 +62,7 @@ function Home() {
         <h1 className="section-title">Our Team</h1>
         <hr className="section-divider" />
         <div className="team-image-container">
-          <img src="/photos/team.jpeg" alt="Our Team" className="team-image" />
+          <img src={`${import.meta.env.BASE_URL}photos/team.jpeg`} alt="Our Team" className="team-image" />
         </div>
         <div className="team-content">
           <p>Our consulting team comprises a diverse group of seasoned professionals, including experienced consultants, former industry leaders, risk and technology specialists, compliance solution experts, and financial regulation authorities. Each team member brings unique insights and deep expertise to address the complex challenges our clients face.</p>

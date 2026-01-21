@@ -183,12 +183,13 @@ p {
 /* ==================== HERO SECTION ==================== */
 .hero-section {
     position: relative;
-    height: 85vh;
+    min-height: 85vh;
     background-repeat: no-repeat; 
-    overflow: hidden;   
+    overflow: visible;   
     display: flex;
     flex-direction: column;
     padding: 0;
+    padding-top: 2em;
     border: 3em solid white; 
     justify-content: center;
     align-items: flex-start;
