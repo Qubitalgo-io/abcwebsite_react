@@ -18,9 +18,9 @@ html {
     --text-gray: #666666;            /* Gray Text */
 
     /* Unified Typography System */
-    --font-display: 7rem;            /* Hero/Display headings */
+    --font-display: 10rem;           /* Hero/Display headings */
     --font-h1: 5rem;                 /* Section titles */
-    --font-h2: 2.5rem;               /* Sub-section titles */
+    --font-h2: 3rem;                 /* Sub-section titles */
     --font-h3: 2rem;                 /* Card titles */
     --font-h4: 1.5rem;               /* Small headings */
     --font-body: 1.5rem;             /* Body text */
@@ -183,13 +183,13 @@ p {
 /* ==================== HERO SECTION ==================== */
 .hero-section {
     position: relative;
-    min-height: 90vh;
+    height: 85vh;
     background-repeat: no-repeat; 
     overflow: hidden;   
     display: flex;
     flex-direction: column;
-    padding: 3em 0;
-    border: 2em solid white; 
+    padding: 0;
+    border: 3em solid white; 
     justify-content: center;
     align-items: flex-start;
     text-align: left;
@@ -270,9 +270,9 @@ p {
 .hero-section h1 {
     font-size: var(--font-display);
     text-align: left;
-    max-width: 900px;
-    width: 70%;
-    padding: 0 5rem;
+    max-width: 2500px;
+    width: 60%;
+    padding: 0 7rem;
     position: relative;
     z-index: 1;
     font-weight: var(--weight-semibold);
@@ -314,14 +314,13 @@ p {
 }
 
 .hero-section-paragraph {
-    margin-top: 1em;
+    margin-top: 0;
     font-weight: var(--weight-regular);
     font-size: var(--font-h2);
     line-height: var(--line-height-normal);
     text-align: left;
-    width: 70%;
-    max-width: 800px;
-    padding: 0 5rem;
+    width: 60%;
+    padding: 0 7rem;
     position: relative;
     z-index: 1;
     
