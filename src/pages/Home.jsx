@@ -1,102 +1,216 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Splitting from 'splitting';
-import 'splitting/dist/splitting.css';
 
 function Home() {
-  const missionTitleRef = useRef(null);
-
-  useEffect(() => {
-    if (missionTitleRef.current) {
-      Splitting({ target: missionTitleRef.current, by: 'chars' });
+  const [activeIndex, setActiveIndex] = useState(0);
+  
+  const services = [
+    {
+      title: "Smart Financial Reporting",
+      description: "In-depth financial analysis provides valuable data to support informed business decisions. Helping clients avoid costly errors caused by inadequate financial data.",
+      image: "photos/slide1.jpg"
+    },
+    {
+      title: "AI-Powered Bookkeeping",
+      description: "Merges machine learning for automated transaction classification. Instant data processing enabling real-time financial dashboards. Cognitive automation via NLP/computer vision to interpret unstructured documents.",
+      image: "photos/slide2.jpg"
+    },
+    {
+      title: "RPA Workflow Automation",
+      description: "Deploys software bots to handle rule-based business processes like invoice matching, payroll processing. Operating 24/7, these bots integrate with ERP/accounting systems (Odoo, SAP, Office 365) to achieve 99.9% accuracy and reduce processing time.",
+      image: "photos/slide3.jpg"
+    },
+    {
+      title: "ERP System Design & Integration",
+      description: "Bridge accounting workflows with supply chain/CRM modules. API connectors for legacy system integration. Embed machine learning models directly into financial modules. Continuous process improvement audits.",
+      image: "photos/slide4.jpg"
     }
-  }, []);
+  ];
+
+  // Auto-advance carousel every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % services.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [services.length]);
+
+  const goToPrev = () => {
+    setActiveIndex((prev) => (prev - 1 + services.length) % services.length);
+  };
+
+  const goToNext = () => {
+    setActiveIndex((prev) => (prev + 1) % services.length);
+  };
 
   return (
     <>
       <Header />
       
       <section id="home" className="hero-section">
-        <h1 className="shimmer-text">Boost your Accounting Automation with AI Innovation</h1>
-        <p className="hero-section-paragraph">
-          A leading company combines AI technology with professional accounting expertise
-        </p>
+        <div className="hero-content">
+          <h1 className="hero-title">
+            <span>Boost your</span>
+            <span>Accounting</span>
+            <span>Automation</span>
+            <span>with AI</span>
+            <span>Innovation</span>
+          </h1>
+        </div>
+        <div className="hero-graphics">
+          <div className="diagonal-line"></div>
+          <div className="circle circle-1"></div>
+          <div className="circle circle-2"></div>
+          <div className="circle circle-3"></div>
+          <div className="circle circle-4"></div>
+        </div>
+        <div className="hero-footer">
+          <p>A leading company combines AI technology with professional accounting expertise</p>
+        </div>
       </section>
 
       <section className="mission-section">
-        <div className="grid-background"></div>
-        <h1 ref={missionTitleRef} className="mission-title" data-splitting>Our Mission</h1>
-        <hr className="mission-divider" />
-        <div className="mission">
-          <p>In today's digital era, many organizations struggle with outdated operational structures that limit collaboration and innovation. Technology and education are essential to transform how businesses adapt to rapidly changing market demands.</p>
-          <p>We leverage AI-driven automation and comprehensive training to revolutionize your operational processes. Our solutions streamline workflows, foster continuous learning, and empower your team to achieve sustainable compliance while driving efficiency and growth.</p>
-        </div>
+        <h1 className="mission-title">OUR MISSION</h1>
+        <p className="mission-text">
+          Many organizations struggle with outdated structures that limit collaboration and innovation in a fast-changing digital world. We harness AI-driven automation and comprehensive training to transform your operations: streamlining workflows, fostering continuous learning, ensuring sustainable compliance, and driving efficiency and growth.
+        </p>
       </section>
 
       <section className="services-section">
-        <div className="grid-background"></div>
-        <h1 className="section-title">Core Services</h1>
-        <hr className="section-divider" />
-        <div className="services-grid">
-          <div className="service-card">
-            <h3>AI-Powered Bookkeeping</h3>
-            <p>Merges machine learning for automated transaction classification. Instant data processing enabling real-time financial dashboards. Cognitive automation via NLP/computer vision to interpret unstructured documents.</p>
+        <h1 className="services-title-top">CORE</h1>
+        <div className="services-carousel-container">
+          <button className="carousel-btn carousel-btn-prev" onClick={goToPrev} aria-label="Previous service">
+            <svg viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="25" cy="25" r="25"/>
+              <path d="M22 17L30 25L22 33" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+            </svg>
+          </button>
+          <div className="services-carousel">
+            {services.map((service, index) => {
+              // Calculate position relative to active
+              let position = index - activeIndex;
+              // Handle wrapping for infinite feel
+              if (position < -1) position += services.length;
+              if (position > 2) position -= services.length;
+              
+              // Hide cards that are not in the visible 3 positions (-1, 0, 1)
+              const isVisible = position >= -1 && position <= 1;
+              
+              return (
+                <div
+                  key={index}
+                  className={`service-card ${index === activeIndex ? 'active' : ''}`}
+                  style={{
+                    transform: `translateX(${position * 560}px) scale(${index === activeIndex ? 1 : 0.85})`,
+                    opacity: isVisible ? 1 : 0,
+                    zIndex: index === activeIndex ? 10 : 5 - Math.abs(position),
+                    visibility: isVisible ? 'visible' : 'hidden',
+                  }}
+                >
+                  <img 
+                    src={`${import.meta.env.BASE_URL}${service.image}`} 
+                    alt={service.title}
+                    className="service-card-image"
+                  />
+                  <div className="service-card-content">
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          <div className="service-card">
-            <h3>RPA Workflow Automation</h3>
-            <p>Deploys software bots to handle rule-based business processes like invoice matching, payroll processing. Operating 24/7, these bots integrate with ERP/accounting systems (Odoo, SAP, Office 365) to achieve 99.9% accuracy and reduce processing time.</p>
-          </div>
-          <div className="service-card">
-            <h3>Smart Financial Reporting</h3>
-            <p>In-depth financial analysis provides valuable data to support informed business decisions. Helping clients avoid costly errors caused by inadequate financial data.</p>
-          </div>
-          <div className="service-card">
-            <h3>ERP System Design & Integration</h3>
-            <p>Bridge accounting workflows with supply chain/CRM modules. API connectors for legacy system integration. Embed machine learning models directly into financial modules. Continuous process improvement audits.</p>
-          </div>
+          <button className="carousel-btn carousel-btn-next" onClick={goToNext} aria-label="Next service">
+            <svg viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="25" cy="25" r="25"/>
+              <path d="M22 17L30 25L22 33" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+            </svg>
+          </button>
         </div>
+        <h1 className="services-title-bottom">SERVICE</h1>
       </section>
 
       <section id="about" className="team-section">
-        <h1 className="section-title">Our Team</h1>
-        <hr className="section-divider" />
-        <div className="team-image-container">
-          <img src={`${import.meta.env.BASE_URL}photos/team.jpeg`} alt="Our Team" className="team-image" />
-        </div>
         <div className="team-content">
-          <p>Our consulting team comprises a diverse group of seasoned professionals, including experienced consultants, former industry leaders, risk and technology specialists, compliance solution experts, and financial regulation authorities. Each team member brings unique insights and deep expertise to address the complex challenges our clients face.</p>
-          <p>This collective expertise allows us to harness knowledge and innovation to help our clients effectively manage compliance risks in an ever-changing regulatory landscape. We are committed to delivering tailored solutions that meet the evolving needs of businesses across various industries.</p>
+          <div className="team-text">
+            <p>Our consulting team comprises a diverse group of seasoned professionals, including experienced consultants, former industry leaders, risk and technology specialists, compliance solution experts, and financial regulation authorities. Each team member brings unique insights and deep expertise to address the complex challenges our clients face.</p>
+            <p>This collective expertise allows us to harness knowledge and innovation to help our clients effectively manage compliance risks in an ever-changing regulatory landscape. We are committed to delivering tailored solutions that meet the evolving needs of businesses across various industries.</p>
+          </div>
+          <div className="team-right">
+            <h1 className="team-title">OUR<br/>TEAM</h1>
+            <div className="team-photos">
+              <div className="team-photo">
+                <img src={`${import.meta.env.BASE_URL}photos/image1.png`} alt="Team Member 1" />
+              </div>
+              <div className="team-photo">
+                <img src={`${import.meta.env.BASE_URL}photos/image2.png`} alt="Team Member 2" />
+              </div>
+              <div className="team-photo">
+                <img src={`${import.meta.env.BASE_URL}photos/image3.png`} alt="Team Member 3" />
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="certs-intro">Our team holds industry-recognized certifications from leading technology and professional bodies:</p>
-        <ul className="certs-list">
-          <li>AWS Certified Cloud Practitioner</li>
-          <li>Azure AI Fundamentals</li>
-          <li>AWS Certified Solutions Architect – Associate</li>
-          <li>IBM Data Science Professional Certificate</li>
-          <li>IBM AI Engineering Professional Certificate</li>
-          <li>Databricks Certified Data Analyst Associate</li>
-          <li>Alibaba Cloud Certified Professional - Data Analyst</li>
-          <li>Deep Learning Specialization by DeepLearning.AI</li>
-          <li>HKICPA - Practising Certificates</li>
-          <li>Certified Information Systems Auditor® (CISA®)</li>
-          <li>CISSP - Certified Information Systems Security Professional</li>
-        </ul>
+      </section>
+
+      <section className="certs-section">
+        <div className="certs-logos">
+          <img src={`${import.meta.env.BASE_URL}photos/aws.png`} alt="AWS" />
+          <img src={`${import.meta.env.BASE_URL}photos/azure.png`} alt="Azure" />
+          <img src={`${import.meta.env.BASE_URL}photos/ibm.png`} alt="IBM" />
+          <img src={`${import.meta.env.BASE_URL}photos/databricks.png`} alt="Databricks" />
+          <img src={`${import.meta.env.BASE_URL}photos/alibaba.png`} alt="Alibaba Cloud" />
+          <img src={`${import.meta.env.BASE_URL}photos/hkicpa.png`} alt="HKICPA" />
+          <img src={`${import.meta.env.BASE_URL}photos/cisa.png`} alt="CISA" />
+          <img src={`${import.meta.env.BASE_URL}photos/cissp.png`} alt="CISSP" />
+        </div>
+        <div className="certs-content">
+          <p className="certs-intro">Our team holds industry-recognized certifications from leading technology and professional bodies:</p>
+          <ul className="certs-list">
+            <li>AWS Certified Cloud Practitioner</li>
+            <li>Azure AI Fundamentals</li>
+            <li>AWS Certified Solutions Architect – Associate</li>
+            <li>IBM Data Science Professional Certificate</li>
+            <li>IBM AI Engineering Professional Certificate</li>
+            <li>Databricks Certified Data Analyst Associate</li>
+            <li>Alibaba Cloud Certified Professional - Data Analyst</li>
+            <li>Deep Learning Specialization by DeepLearning.AI</li>
+            <li>HKICPA - Practising Certificates</li>
+            <li>Certified Information Systems Auditor® (CISA®)</li>
+            <li>CISSP - Certified Information Systems Security Professional</li>
+          </ul>
+        </div>
       </section>
 
       <section className="value-section">
-        <div className="grid-background"></div>
-        <h1 className="section-title">Our Commitment & Value Proposition</h1>
-        <hr className="section-divider" />
-        <p className="value-text">As a forward-thinking consultancy, we are deeply committed to sustainability across all facets of our operations. Our goal extends beyond delivering financial returns; we strive to generate tangible social and environmental benefits for our clients and the communities we serve.</p>
-        <p className="value-intro">By partnering with us, you gain access to:</p>
-        <ul className="value-list">
-          <li>Cutting-edge technological solutions</li>
-          <li>Industry-leading expertise</li>
-          <li>Innovative compliance strategies</li>
-          <li>Sustainable operational models</li>
-        </ul>
-        <p className="value-closing">We invite you to join us in reshaping traditional operations through the power of technology. Together, we can drive meaningful change, enhance compliance practices, and create lasting value in an increasingly complex business environment.</p>
+        <div className="value-container">
+          <div className="value-left">
+            <h1 className="value-title">Our Commitment &<br />Value Proposition</h1>
+            <p className="value-text">As a forward-thinking consultancy, we are deeply committed to sustainability across all facets of our operations. Our goal extends beyond delivering financial returns; we strive to generate tangible social and environmental benefits for our clients and the communities we serve.</p>
+            <p className="value-closing">We invite you to join us in reshaping traditional operations through the power of technology. Together, we can drive meaningful change, enhance compliance practices, and create lasting value in an increasingly complex business environment.</p>
+          </div>
+          <div className="value-right">
+            <ul className="value-timeline">
+              <li>
+                <span className="timeline-text">Cutting-edge technological solutions</span>
+                <span className="timeline-dot"></span>
+              </li>
+              <li>
+                <span className="timeline-text">Industry-leading expertise</span>
+                <span className="timeline-dot"></span>
+              </li>
+              <li>
+                <span className="timeline-text">Innovative compliance strategies</span>
+                <span className="timeline-dot"></span>
+              </li>
+              <li>
+                <span className="timeline-text">Sustainable operational models</span>
+                <span className="timeline-dot"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <Footer />
